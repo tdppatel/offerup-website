@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OfferUp Ltd - Mentoring Programme</title>
+  <!-- Removed Canva-specific SDK scripts -->
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100%;
+      color: #1a1a1a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    nav {
+        background: rgba(255, 255, 255, 0.98);
+        padding: 0.4rem 1.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between; /* pushes nav-links to right */
+        align-items: center;             /* centers vertically */
+        height: 60px;                    /* controls navbar height */
+        gap: 1rem;
+      }
+      
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;         /* closens logo + text */
+        font-size: 1.8rem;
+      }
+      
+
+      .logo-icon {
+        width: 150px;
+        height: 150px;
+      }
+      
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        white-space: nowrap; /* prevents wrapping to a new line */
+        align-items: center;
+      }
+      
+
+    .nav-links a {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .nav-links a.active {
+      color: #667eea;
+      border-bottom: 2px solid #667eea;
+    }
+
+    /* Page Container */
+    .page {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Hero Section */
+    .hero {
+      background: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0 0 1rem 0;
+      color: #1a1a1a;
+    }
+
+    .hero .tagline {
+      font-size: 1.3rem;
+      color: #666;
+      margin: 0;
+    }
+
+    /* Content Section */
+    .content-section {
+      background: white;
+      margin: 2rem auto;
+      max-width: 1200px;
+      padding: 3rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .content-section h2 {
+      font-size: 2.2rem;
+      color: #1a1a1a;
+      margin: 0 0 1.5rem 0;
+      padding-bottom: 1rem;
+      border-bottom: 3px solid #667eea;
+    }
+
+    .content-section h3 {
+      font-size: 1.6rem;
+      color: #667eea;
+      margin: 2rem 0 1rem 0;
+    }
+
+    .content-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #444;
+      margin: 1rem 0;
+    }
+
+    .content-section ul {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #444;
+      margin: 1rem 0 1rem 2rem;
+    }
+
+    .content-section li {
+      margin: 0.5rem 0;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    /* Founders Section */
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .founder-card {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      border: 2px solid #e9ecef;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .founder-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+    }
+
+    .founder-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin: 1rem 0 0.5rem 0;
+    }
+
+    .founder-title {
+      color: #667eea;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+    }
+
+    .linkedin-btn {
+      display: inline-block;
+      background: #0077b5;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .linkedin-btn:hover {
+      background: #005885;
+    }
+
+    .founder-photo {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        border: 4px solid #667eea;
+        margin: 0 auto 1rem auto;
+        display: block;
+      }
+
+
+    /* Payment Section */
+    .payment-info {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      border-left: 4px solid #667eea;
+    }
+
+    .payment-info h4 {
+      color: #1a1a1a;
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
+    }
+
+    /* Success Stories (Placeholder) */
+    .coming-soon {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #666;
+    }
+
+    .coming-soon h3 {
+      font-size: 2rem;
+      color: #667eea;
+      margin: 0 0 1rem 0;
+    }
+
+    /* Contact Footer */
+    .contact-footer {
+      background: #1a1a1a;
+      color: white;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+
+    .contact-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-footer h3 {
+      font-size: 1.8rem;
+      margin: 0 0 1.5rem 0;
+      color: white;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .contact-item {
+      font-size: 1.1rem;
+    }
+
+    .contact-item a {
+      color: #667eea;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      color: #764ba2;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .tagline {
+        font-size: 1.1rem;
+      }
+
+      .content-section {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+      }
+
+      .content-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <!-- Removed Canva data SDK, kept Tailwind CDN if you ever want to use it -->
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+    <nav>
+        <div class="nav-container">
+          <div class="logo">
+            <img src="your-logo.png" class="logo-icon" alt="OfferUp Logo">
+          </div>
+    
+          <div class="nav-links">
+            <a href="#" data-page="info" class="nav-link active">Information</a>
+            <a href="#" data-page="payment" class="nav-link">Payment</a>
+            <a href="#" data-page="signup" class="nav-link">Sign Up Now</a>
+          </div>
+        </div>
+      </nav>
+    
+
+  <!-- Information Page -->
+  <main id="info-page" class="page active">
+   <section class="hero">
+    <div class="hero-content">
+     <h1 id="hero-title">OfferUp Ltd</h1>
+     <p class="tagline" id="hero-tagline">Your Gateway to Finance Careers</p>
+    </div>
+   </section>
+   <section class="content-section">
+    <h2>What We Do</h2>
+    <p>OfferUp is a specialised mentoring programme designed to help first-year students break into the highly competitive world of Spring Weeks, Summer Internships, and future Graduate Roles across investment banking, asset management, trading, and wider financial services.</p>
+    <p>We provide students with the exact structure, support, and insider knowledge needed to stand out in a recruitment process where tens of thousands of applicants compete for only a handful of places.</p>
+
+    <h3>Our Impact</h3>
+    <div class="stats-grid">
+     <div class="stat-card">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">Student Sign-ups</div>
+     </div>
+     <div class="stat-card">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Success Rate (as of 2025)</div>
+     </div>
+     <div class="stat-card">
+      <div class="stat-number">1:1</div>
+      <div class="stat-label">Personal Mentoring</div>
+     </div>
+    </div>
+
+    <p style="text-align: center; font-weight: 600; color: #667eea; margin-top: 1rem;">
+      Top-tier offers secured at firms such as Rothschild &amp; Co, Morgan Stanley, UBS, Bank of America, IMC Trading, and more
+    </p>
+
+    <h3>What Are Spring Weeks &amp; Summer Internships?</h3>
+    <p>Finance recruitment starts earlier than most students expect.</p>
+
+    <h4 style="font-size: 1.3rem; color: #1a1a1a; margin: 1.5rem 0 0.5rem 0;">Spring Weeks</h4>
+    <p>Short, competitive programmes for first-year university students that act as a gateway into the industry. Performing well can lead to:</p>
+    <ul>
+     <li>Fast-tracked Summer Internship offers (£10,000-£15,000+)</li>
+     <li>Accelerated progression into Graduate Roles (often £60,000–£80,000+ depending on firm and division)</li>
+    </ul>
+    <p><strong>To illustrate the competition:</strong><br>
+     UBS received over 16,000 applications for around 40 Spring Week places last year.</p>
+
+    <h4 style="font-size: 1.3rem; color: #1a1a1a; margin: 1.5rem 0 0.5rem 0;">Summer Internships</h4>
+    <ul>
+     <li>Paid 8–10 week placements where students are assessed for full-time roles</li>
+     <li>Securing a Summer Internship is the most reliable route into front-office finance</li>
+    </ul>
+    <p style="font-style: italic; color: #667eea;">
+      Having mentors who have already succeeded in these processes can make the difference between an early rejection and a life-changing offer.
+    </p>
+
+    <h3>Why OfferUp Was Created</h3>
+    <p>We founded OfferUp after experiencing the process ourselves, navigating dozens of CV submissions, online tests, interviews, assessment centres, and networking events.</p>
+    <p>Between us and the mentors we work with, we've secured offers at leading global institutions including:<br>
+      <strong>Rothschild &amp; Co, Morgan Stanley, UBS, IMC Trading, Bank of America, and other top financial firms.</strong>
+    </p>
+    <p>We created OfferUp to ensure talented students get the clarity, structure, and insider knowledge needed to succeed in competitive finance recruitment.<br>
+     Talent should matter more than background, and we ensure capable, hardworking students get the same guidance and opportunities as anyone else.</p>
+
+    <h3>How the Programme Works</h3>
+    <p>OfferUp provides <strong>1:1 personalised mentoring</strong>, tailored to each student's goals and target divisions. Depending on the package, students receive:</p>
+    <ul>
+     <li>Professional CV &amp; application optimisation</li>
+     <li>Tailored networking strategy</li>
+     <li>Cover letter drafting &amp; polishing</li>
+     <li>Interview coaching + mock interviews</li>
+     <li>Assessment centre preparation</li>
+     <li>Ongoing application support throughout the recruitment cycle</li>
+     <li>Flexible online sessions built around university schedules</li>
+    </ul>
+    <p style="font-weight: 600; color: #667eea; margin-top: 1.5rem;">
+      Our goal is simple:<br>
+      Help you secure offers as early as possible, and build skills that last your entire career.
+    </p>
+   </section>
+
+   <section class="content-section">
+    <h2 id="about-title">About Us</h2>
+    <div class="founders-grid">
+     <div class="founder-card">
+      <img src="tiana.jpg" alt="Photo of Tiana Patel" class="founder-photo">
+      <div class="founder-name">Tiana Patel</div>
+      <div class="founder-title">Co-Founder, OfferUp Ltd</div>
+      <p>Tiana specialises in Quantitative Finance, Global Markets, and Global Capital Markets (GCM). She has developed strong experience across front-office markets roles, with a technical background in computer science that spans statistical modelling, data-driven trading strategies, and quantitative analysis. Her expertise enables her to guide students through the demands of quant, trading, and markets-focused recruitment.</p>
+      <a href="https://www.linkedin.com/in/tiana-patel-125819258" target="_blank" rel="noopener noreferrer" class="linkedin-btn">Connect on LinkedIn</a>
+     </div>
+  
+     <div class="founder-card">
+      <img src="aaryan.jpg" alt="Photo of Aaryan Bhogra" class="founder-photo">
+      <div class="founder-name">Aaryan Bhogra</div>
+      <div class="founder-title">Co-Founder, OfferUp Ltd</div>
+      <p>Aaryan specialises in Investment Banking (IB), Asset Management, Private Credit, Private Equity, and Wealth Management. He has gained experience across leading financial institutions, giving him a strong understanding of investment analysis, capital deployment, and client-focused advisory. His background allows him to support students through competitive front-office recruitment and the technical demands of both public and private markets.</p>
+      <a href="https://www.linkedin.com/in/aaryanbhogra/" target="_blank" rel="noopener noreferrer" class="linkedin-btn">Connect on LinkedIn</a>
+     </div>
+    </div>
+  </section>
+  
+
+   <footer class="contact-footer">
+    <div class="contact-content">
+     <h3>Contact Us</h3>
+     <p>Have questions? We'd be happy to chat and explain everything in detail.</p>
+     <div class="contact-details">
+      <div class="contact-item">
+        <strong>Email:</strong> <a href="mailto:info@offerupltd.co.uk">info@offerupltd.co.uk</a>
+      </div>
+      <div class="contact-item">
+        <strong>Tiana's Phone:</strong> <a href="tel:07551074685" id="footer-phone-1">07551 074 685</a>
+      </div>
+      <div class="contact-item">
+        <strong>Aaryan's Phone:</strong> <a href="tel:07776495594" id="footer-phone-2">07776 495 594</a>
+      </div>
+     </div>
+     <p style="margin-top: 2rem; opacity: 0.8;">© 2024 OfferUp Ltd. All rights reserved.</p>
+    </div>
+   </footer>
+  </main>
+  <!-- Payment Page -->
+  <main id="payment-page" class="page">
+   <section class="hero">
+    <div class="hero-content">
+     <h1>Payment Information</h1>
+     <p class="tagline">Investment in Your Future</p>
+    </div>
+   </section>
+
+   <section class="content-section">
+    <h2>Programme Investment</h2>
+    <p>We charge for the programme to account for our time and resources in providing comprehensive 1:1 mentoring. However, this isn't about money, our aim is to help talented students realise their potential and open doors into successful careers.</p>
+
+    <div class="payment-info">
+     <h4>📋 Programme Agreement</h4>
+     <p>Once the Programme Agreement has been signed, payment received, we can begin the service immediately. As some Spring Weeks have already been released, it would be ideal to commence as soon as possible to ensure we can support you to the best of our ability.</p>
+    </div>
+
+    <h3>Getting Started</h3>
+    <p>To begin your journey with OfferUp:</p>
+    <ul>
+     <li>Review the Programme Agreement document</li>
+     <li>Sign, return the agreement and carry out the required tasks of the contract</li>
+     <li>Schedule your first mentoring session</li>
+     <li>Start your path to finance success</li>
+    </ul>
+
+    <div class="payment-info">
+     <h4>💬 Questions About Payment?</h4>
+     <p>Please don't hesitate to reach out to either of us directly. We'd be very happy to explain everything over a quick call.</p>
+    </div>
+   </section>
+
+   <footer class="contact-footer">
+    <div class="contact-content">
+     <h3>Contact Us</h3>
+     <p>Have questions? We'd be happy to chat and explain everything in detail.</p>
+     <div class="contact-details">
+      <div class="contact-item">
+        <strong>Email:</strong> <a href="mailto:info@offerupltd.co.uk">info@offerupltd.co.uk</a>
+      </div>
+      <div class="contact-item">
+        <strong>Phone:</strong> <a href="tel:07551074685">07551 074 685</a>
+      </div>
+      <div class="contact-item">
+        <strong>Phone:</strong> <a href="tel:07776495594">07776 495 594</a>
+      </div>
+     </div>
+     <p style="margin-top: 2rem; opacity: 0.8;">© 2024 OfferUp Ltd. All rights reserved.</p>
+    </div>
+   </footer>
+  </main>
+
+  <!-- Sign Up Page -->
+  <main id="signup-page" class="page">
+   <section class="hero">
+    <div class="hero-content">
+     <h1>Sign Up Now</h1>
+     <p class="tagline">Start Your Journey to Finance Success</p>
+    </div>
+   </section>
+
+   <section class="content-section">
+    <h2>Book a Consultation Call</h2>
+    <p style="font-size: 1.2rem; text-align: center; margin: 2rem 0;">
+      Design your bespoke mentoring package with a personalized consultation call. We'll discuss your goals, target firms, and create a tailored programme to help you succeed.
+    </p>
+
+    <div style="margin: 3rem auto; max-width: 900px;">
+        <div class="calendly-inline-widget"
+             data-url="https://calendly.com/aaryanbhogra"
+             style="min-width: 320px; height: 700px;">
+        </div>
+      </div>
+      
+
+    <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; margin: 3rem 0; border-left: 4px solid #667eea;">
+     <h3 style="color: #1a1a1a; margin: 0 0 1rem 0;">What to Expect in Your Consultation</h3>
+     <ul style="margin: 0; padding-left: 1.5rem;">
+      <li>Discussion of your career goals and target divisions</li>
+      <li>Assessment of your current application readiness</li>
+      <li>Tailored package recommendation based on your needs</li>
+      <li>Timeline planning for upcoming recruitment cycles</li>
+      <li>Q&amp;A session about the programme and process</li>
+      <li>Please have a budget in mind and confirm this with a parent if necessary beforehand to avoid unnecessary delay</li>
+     </ul>
+    </div>
+
+    <div style="text-align: center; margin: 3rem 0;">
+     <h3 style="color: #667eea;">Why Choose OfferUp?</h3>
+     <div class="stats-grid" style="margin-top: 2rem;">
+      <div class="stat-card">
+       <div class="stat-number">100%</div>
+       <div class="stat-label">Success Rate</div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-number">1:1</div>
+       <div class="stat-label">Personal Mentoring</div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-number">Top-Tier</div>
+       <div class="stat-label">Firm Placements</div>
+      </div>
+     </div>
+    </div>
+
+    <p style="text-align: center; font-size: 1.1rem; color: #666; margin-top: 3rem;">
+      Have questions before booking? Feel free to reach out via email or phone, we're here to help!
+    </p>
+   </section>
+
+   <footer class="contact-footer">
+    <div class="contact-content">
+     <h3>Contact Us</h3>
+     <p>Have questions? We'd be happy to chat and explain everything in detail.</p>
+     <div class="contact-details">
+      <div class="contact-item">
+        <strong>Email:</strong> <a href="mailto:info@offerupltd.co.uk">info@offerupltd.co.uk</a>
+      </div>
+      <div class="contact-item">
+        <strong>Phone:</strong> <a href="tel:07551074685">07551 074 685</a>
+      </div>
+      <div class="contact-item">
+        <strong>Phone:</strong> <a href="tel:07763986157">07763 986 157</a>
+      </div>
+     </div>
+     <p style="margin-top: 2rem; opacity: 0.8;">© 2024 OfferUp Ltd. All rights reserved.</p>
+    </div>
+   </footer>
+  </main>
+
+  <!-- Calendly inline widget script -->
+  <script type="text/javascript"
+          src="https://assets.calendly.com/assets/external/widget.js"
+          async>
+  </script>
+
+  <!-- Simple navigation script -->
+  <script>
+    // Navigation between pages
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pageName = link.dataset.page;
+        
+        document.querySelectorAll('.page').forEach(page => {
+          page.classList.remove('active');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(navLink => {
+          navLink.classList.remove('active');
+        });
+        
+        document.getElementById(pageName + '-page').classList.add('active');
+        link.classList.add('active');
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+ </body>
+</html>
